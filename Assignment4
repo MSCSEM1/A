@@ -1,0 +1,278 @@
+Assignment 4
+
+ 1. Library Database
+
+Create Nodes:
+
+CREATE (book1:Book {title: 'Tinker, Tailor, Soldier, Spy', status: 'In Library', condition: 'Old', cost: 500, type: 'Novel', tags: ['spy', 'thriller', 'suspense']}),
+       (book2:Book {title: 'Our Man in Havana', status: 'Issued', condition: 'New', cost: 300, type: 'Novel', tags: ['comedy', 'espionage']}),
+       (author1:Person {name: 'John Le Carre', role: 'Author', born: '1932-10-19'}),
+       (author2:Person {name: 'Graham Greene', role: 'Author', born: '1904-10-02', died: '1991-04-02'}),
+       (reader1:Person {name: 'Alan', role: 'Reader'}),
+       (reader2:Person {name: 'Ian', role: 'Reader'}),
+       (publisher:Publisher {name: 'Penguin Books'})
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Relationships:
+
+CREATE (author1)-[:WROTE]->(book1),
+       (author2)-[:WROTE]->(book2),
+       (reader1)-[:RECOMMENDED {date: '2011-07-05'}]->(book1),
+       (reader2)-[:RECOMMENDED {date: '2011-02-03'}]->(book2),
+       (reader2)-[:RECOMMENDED {date: '2011-09-09'}]->(book1),
+       (book1)-[:PUBLISHED_BY]->(publisher),
+       (book2)-[:PUBLISHED_BY]->(publisher)
+
+*******************************************************************************************************************************************************
+
+### 2. **Song Database**
+
+Create Nodes:
+
+CREATE (song1:Song {title: 'Imagine', length: 183}),
+       (artist1:Artist {name: 'John Lennon'}),
+       (songAuthor:Person {name: 'John Lennon', role: 'Song Author'}),
+       (studio:RecordingStudio {name: 'Abbey Road Studios'}),
+       (company:RecordingCompany {name: 'EMI'}),
+       (producer:Person {name: 'Phil Spector', role: 'Producer'})
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Relationships:
+
+CREATE (artist1)-[:PERFORMS]->(song1),
+       (song1)-[:WRITTEN_BY]->(songAuthor),
+       (song1)-[:RECORDED_IN]->(studio),
+       (studio)-[:MANAGED_BY]->(company),
+       (company)-[:FINANCES]->(song1),
+       (song1)-[:PRODUCED_BY]->(producer)
+
+*****************************************************************************************************************************************************
+
+### 3. **Employee Database**
+
+Create Nodes:
+
+CREATE (emp1:Employee {name: 'Alice', role: 'Developer'}),
+       (emp2:Employee {name: 'Bob', role: 'Manager'}),
+       (department:Department {name: 'IT'}),
+       (project:Project {name: 'ProjectX'}),
+       (skill:Skillset {name: 'Python'})
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Relationships:
+
+CREATE (emp1)-[:WORKS_IN]->(department),
+       (emp2)-[:WORKS_IN]->(department),
+       (emp1)-[:HAS_ACQUIRED]->(skill),
+       (emp1)-[:ASSIGNED_TO]->(project),
+       (project)-[:CONTROLLED_BY]->(department),
+       (emp2)-[:PROJECT_MANAGER]->(project)
+
+*******************************************************************************************************************************************************
+
+### 4. **Movie Database**
+
+Create Nodes:
+
+CREATE (actor:Actor {name: 'Robert Downey Jr.'}),
+       (movie:Movie {title: 'Iron Man', release_year: 2008}),
+       (director:Person {name: 'Jon Favreau', role: 'Director'}),
+       (producer:Person {name: 'Kevin Feige', role: 'Producer'})
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Relationships:
+
+CREATE (actor)-[:ACTED_IN {role: 'Tony Stark'}]->(movie),
+       (director)-[:DIRECTED]->(movie),
+       (producer)-[:PRODUCED]->(movie)
+
+*******************************************************************************************************************************************************
+
+### 5. **Social Network Database**
+
+Create Nodes:
+
+CREATE (person1:Person {name: 'Jane'}),
+       (person2:Person {name: 'John'}),
+       (group:Group {name: 'Book Club'}),
+       (story:Story {title: 'A Day in Paris'}),
+       (timeline:Timeline {date: '2023-08-15'}),
+       (affiliation:Affiliation {name: 'XYZ Organization'})
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Create Relationships:
+
+CREATE (person1)-[:FRIEND_OF]->(person2),
+       (person1)-[:BELONGS_TO]->(group),
+       (person1)-[:CREATES]->(story),
+       (story)-[:REFERS_TO]->(person2),
+       (person1)-[:CREATES]->(timeline),
+       (timeline)-[:REFERENCE_FOR]->(story),
+       (person1)-[:AFFILIATED_TO]->(affiliation)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Here are the Cypher queries based on the relationships and nodes we created earlier. For each question, I will reference the data model and adjust the queries accordingly.
+
+---
+
+### 1. **Library Database**
+
+#### a) List all people who have issued a book “.....”
+```cypher
+MATCH (person:Person)-[:ISSUED_BY]->(book:Book {title: 'Book Title'})
+RETURN person.name
+```
+
+#### b) Count the number of people who have read “.....”
+```cypher
+MATCH (person:Person)-[:RECOMMENDED]->(book:Book {title: 'Book Title'})
+RETURN COUNT(person) AS readersCount
+```
+
+#### c) Add a property “Number of books issued” for Mr. Joshi and set its value as the count
+```cypher
+MATCH (person:Person {name: 'Mr. Joshi'})-[:ISSUED_BY]->(book:Book)
+SET person.number_of_books_issued = COUNT(book)
+```
+
+#### d) List the names of publishers from Pune city
+```cypher
+MATCH (publisher:Publisher {city: 'Pune'})
+RETURN publisher.name
+```
+
+---
+
+### 2. **Song Database**
+
+#### a) List the names of songs written by “.....”
+```cypher
+MATCH (song:Song)-[:WRITTEN_BY]->(author:Person {name: 'Author Name'})
+RETURN song.title
+```
+
+#### b) List the names of record companies who have financed for the song “.....”
+```cypher
+MATCH (company:RecordingCompany)-[:FINANCES]->(song:Song {title: 'Song Title'})
+RETURN company.name
+```
+
+#### c) List the names of artists performing the song “.....”
+```cypher
+MATCH (artist:Artist)-[:PERFORMS]->(song:Song {title: 'Song Title'})
+RETURN artist.name
+```
+
+#### d) Name the songs recorded by the studio “.....”
+```cypher
+MATCH (song:Song)-[:RECORDED_IN]->(studio:RecordingStudio {name: 'Studio Name'})
+RETURN song.title
+```
+
+---
+
+### 3. **Employee Database**
+
+#### a) List the names of employees in the department “.....”
+```cypher
+MATCH (employee:Employee)-[:WORKS_IN]->(department:Department {name: 'Department Name'})
+RETURN employee.name
+```
+
+#### b) List the projects along with their properties, controlled by the department “.....”
+```cypher
+MATCH (project:Project)-[:CONTROLLED_BY]->(department:Department {name: 'Department Name'})
+RETURN project
+```
+
+#### c) List the departments along with the count of employees in it
+```cypher
+MATCH (employee:Employee)-[:WORKS_IN]->(department:Department)
+RETURN department.name, COUNT(employee) AS employeeCount
+```
+
+#### d) List the skillset for an employee “.....”
+```cypher
+MATCH (employee:Employee {name: 'Employee Name'})-[:HAS_ACQUIRED]->(skill:Skillset)
+RETURN skill.name
+```
+
+---
+
+### 4. **Movie Database**
+
+#### a) Find all actors who have acted in a movie “.....”
+```cypher
+MATCH (actor:Actor)-[:ACTED_IN]->(movie:Movie {title: 'Movie Title'})
+RETURN actor.name
+```
+
+#### b) Find all reviewer pairs, one following the other and both reviewing the same movie, and return entire subgraphs
+```cypher
+MATCH (reviewer1:Person)-[:REVIEWED]->(movie:Movie)<-[:REVIEWED]-(reviewer2:Person)
+WHERE (reviewer1)-[:FOLLOWS]->(reviewer2)
+RETURN reviewer1, reviewer2, movie
+```
+
+#### c) Find all actors that acted in a movie together after 2010 and return the actor names and movie node
+```cypher
+MATCH (actor1:Actor)-[:ACTED_IN]->(movie:Movie)-[:ACTED_IN]-(actor2:Actor)
+WHERE movie.release_year > 2010
+RETURN actor1.name, actor2.name, movie
+```
+
+#### d) Find all movies produced by “.....”
+```cypher
+MATCH (producer:Person {name: 'Producer Name'})-[:PRODUCED]->(movie:Movie)
+RETURN movie.title
+```
+
+---
+
+### 5. **Social Network Database**
+
+#### a) Find all friends of “John”, along with the year since when John knows them
+```cypher
+MATCH (john:Person {name: 'John'})-[friendship:FRIEND_OF]->(friend:Person)
+RETURN friend.name, friendship.since AS knownSince
+```
+
+#### b) List out the affiliations of John
+```cypher
+MATCH (john:Person {name: 'John'})-[:AFFILIATED_TO]->(affiliation:Affiliation)
+RETURN affiliation.name
+```
+
+#### c) Find all friends of John who are born in the same year as John
+```cypher
+MATCH (john:Person {name: 'John'})-[:FRIEND_OF]->(friend:Person)
+WHERE john.birth_year = friend.birth_year
+RETURN friend.name
+```
+
+#### d) List out the messages posted by John in his timeline during the year 2015
+```cypher
+MATCH (john:Person {name: 'John'})-[:CREATES]->(timeline:Timeline)-[:CONTAINS]->(message:Message)
+WHERE timeline.date CONTAINS '2015'
+RETURN message.content
+```
+
+---
+
+These queries should help you with your assignment based on the graph models you created for the library, song, employee, movie, and social network databases. You can adjust the properties and nodes as needed depending on your specific database implementation.

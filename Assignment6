@@ -1,0 +1,87 @@
+*LIBRARY DB:-
+
+a) List all readers who have recommended either book “Tinker,Tailor,Soldier,Spy” or “Our Man
+in Havana”
+
+MATCH (a:Reader)-[r:Recommended]->(b:Book) WHERE 			   
+	b.title="Tinker,Tailor,Soldier,Spy"
+  	OR b.title="Our Man in Havana" RETURN a
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+b) List the readers who haven’t recommended any book
+
+MATCH (a:Reader) WHERE NOT (a:Reader)-[:Recommended]->(:Book) return a
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+c) List the authors who have written a book that has been read / issued by maximum number of readers.
+
+MATCH (b:Book)-[r:Issued_By]->(a:Reader) RETURN a.name,b.title,COUNT(b)
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+d) List the names of books recommended by “ ” And read by at least one reader
+
+MATCH (a:Reader{name:"Lan" })-[r:Recommended]->(b:Book)-[rr:Issued_By]->(rd:Reader)
+RETURN a,r,rd,rr,b
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+e)
+MATCH(reader:Reader{name:'Person1'})-[:Recommended]->(book:Book)
+WITH book
+MATCH (book)<-[:Issued_By | Recommended]- (otherReader:Reader)
+WITH book,COUNT(DISTINCT otherReader) AS readerCount
+RETURN book.Title
+ORDER BY readerCount DESC
+LIMIT 1
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+f)
+MATCH (publisher:person)-[:Published_By]->[:Wrote]->(author:Author)
+WHERE author.city IN ['Pune','Mumbai']
+WITH DISTINCT publisher
+MATCH(publsiher)-[:Published_By]->(book:Book)
+RETURN DISTINCT publisher.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+g) List the names of voracious readers in our library
+[Voracious means the reader who haven't issued any book]
+
+MATCH (a:Reader) WHERE NOT (:Book)-[:Issued_By]->(a:Reader) RETURN a.name
+
+=======================================================================================================================================================
+
+*SONG DB:-
+a)
+MATCH (a:Artist)-[r:Performs]->(ss:song),(ss:song)-[rr.Written_by]->(s:songAuthor{name:"indiwar"}) return a.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+b)
+match (a:Artist),(r:Recording_studio),(ss:song)-[:record]->(r) return r,ss,a
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) List the names of songs financed by “T-Series”, and sung by “Neha Kakkar”
+
+MATCH (a:Artist)-[r:Performs]->(b:Song)<-[rr:Finances]-(c:Company) WHERE a.name='Neha
+Kakkar' AND c.name='T-Series' RETURN b
+
+=======================================================================================================================================================
+
+*EMPLLOYEE DB:-
+
+a)
+
+match(e:Employee),(s:skillset{skillset{skills:["fluent communicaion","java developer"]})
+where(e:Employee) and (e)-[:has_acquired]->(s) return distinct s.name,e.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+b) List the projects controlled by a department “BPO” and have employees of the same
+department working in it.
+
+match (d:Dept{name:'BPO'})<-[:Controlled_By]-(p:Project)<-[:Assigned_To]-(e:Emp),
+(e:Emp)-[:Works_In]->(d:Dept) return d,p,e
+
+-------------------------------------------------------------------------------------
+c) List the names of the projects belonging to departments managed by employee “Kevin”
+
+match (e:Emp{name:'Kevin'})<-[:Project_Manager]-(p:Project)-[:Controlled_By]->(d:Dept)
+return p,d

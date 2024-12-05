@@ -1,0 +1,902 @@
+
+> use Company1
+switched to db Company1
+> db.createCollection("Employee")
+{ "ok" : 1 }
+> db.Employee.insertMany([
+...   {
+...     EmployeeID: "E001",
+...     FirstName: "Suchitra",
+...     LastName: "Yadav",
+...     Email: "suchitra@example.com",
+...     PhoneNo: "860-542-1234",
+...     Address: {
+...       HouseNo: "1358A",
+...       Street: "Bajirao Road",
+...       City: "Pune",
+...       State: "MH",
+...       Country: "India",
+...       PinCode: "411030"
+...     },
+...     Salary: 75000,
+...     Designation: "Sales Manager",
+...     Experience: 3,
+...     DateOfJoining: new Date("2024-04-23"),
+...     Birthdate: new Date("2004-09-15")
+...   },
+...   {
+...     EmployeeID: "E002",
+...     FirstName: "Satish",
+...     LastName: "Bhor",
+...     Email: "satish@example.com",
+...     PhoneNo: "111-555-5678",
+...     Address: {
+...       HouseNo: "25",
+...       Street: "Ganeshwadi",
+...       City: "Manchar",
+...       State: "MH",
+...       Country: "India",
+...       PinCode: "400200"
+...     },
+...     Salary: 68000,
+...     Designation: "Software Engineer",
+...     Experience: 2,
+...     DateOfJoining: new Date("2023-01-12"),
+...     Birthdate: new Date("2003-12-22")
+...   },
+...   {
+...     EmployeeID: "E003",
+...     FirstName: "Carol",
+...     LastName: "Williams",
+...     Email: "carol.williams@example.com",
+...     PhoneNo: "918-235-8765",
+...     Address: {
+...       HouseNo: "42",
+...       Street: "Pine St",
+...       City: "Springfield",
+...       State: "IL",
+...       Country: "USA",
+...       PinCode: "62703"
+...     },
+...     Salary: 72000,
+...     Designation: "Data Analyst",
+...     Experience: 6,
+...     DateOfJoining: new Date("2017-08-09"),
+...     Birthdate: new Date("1983-04-10")
+...   },
+...   {
+...     EmployeeID: "E004",
+...     FirstName: "Dinesh",
+...     LastName: "Barve",
+...     Email: "dbarve@example.com",
+...     PhoneNo: "753-982-2345",
+...     Address: {
+...       HouseNo: "78",
+...       Street: "Oak St",
+...       City: "Pune",
+...       State: "MH",
+...       Country: "India",
+...       PinCode: "411030"
+...     },
+...     Salary: 50000,
+...     Designation: "HR Specialist",
+...     Experience: 4,
+...     DateOfJoining: new Date("2019-11-30"),
+...     Birthdate: new Date("1988-03-20")
+...   },
+...   {
+...     EmployeeID: "E005",
+...     FirstName: "Eva",
+...     LastName: "Davis",
+...     Email: "eva.davis@example.com",
+...     PhoneNo: "555-3456",
+...     Address: {
+...       HouseNo: "9",
+...       Street: "Birch Rd",
+...       City: "Springfield",
+...       State: "IL",
+...       Country: "USA",
+...       PinCode: "62705"
+...     },
+...     Salary: 69000,
+...     Designation: "Marketing Manager",
+...     Experience: 7,
+...     DateOfJoining: new Date("2018-05-16"),
+...     Birthdate: new Date("1982-11-30")
+...   }
+... ]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("66b312df2ac2ae11b0bf19ac"),
+		ObjectId("66b312df2ac2ae11b0bf19ad"),
+		ObjectId("66b312df2ac2ae11b0bf19ae"),
+		ObjectId("66b312df2ac2ae11b0bf19af"),
+		ObjectId("66b312df2ac2ae11b0bf19b0")
+	]
+}
+
+> db.createCollection("Transaction")
+{ "ok" : 1 }
+> db.Transaction.insertMany([
+...   {
+...     TransactionId: "201",
+...     TransactionDate: new Date("2024-08-01"),
+...     Name: "Satish",
+...     TransactionDetails: {
+...       ItemId: "I001",
+...       ItemName: "Laptop",
+...       Quantity: 1,
+...       Price: 60000
+...     },
+...     Payment: {
+...       TypeOfPayment: "Credit",
+...       TotalAmountPaid: 60000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "Office Laptop"
+...   },
+...   {
+...     TransactionId: "202",
+...     TransactionDate: new Date("2024-05-02"),
+...     Name: "Satish",
+...     TransactionDetails: {
+...       ItemId: "I002",
+...       ItemName: "Mouse",
+...       Quantity: 2,
+...       Price: 500
+...     },
+...     Payment: {
+...       TypeOfPayment: "Debit",
+...       TotalAmountPaid: 5000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: ""
+...   },
+...   {
+...     TransactionId: "203",
+...     TransactionDate: new Date("2023-05-03"),
+...     Name: "Carol",
+...     TransactionDetails: {
+...       ItemId: "I003",
+...       ItemName: "Keyboard",
+...       Quantity: 1,
+...       Price: 1000
+...     },
+...     Payment: {
+...       TypeOfPayment: "Cash",
+...       TotalAmountPaid: 1000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "For home office"
+...   },
+...   {
+...     TransactionId: "204",
+...     TransactionDate: new Date("2024-02-04"),
+...     Name: "Dinesh",
+...     TransactionDetails: {
+...       ItemId: "I004",
+...       ItemName: "Monitor",
+...       Quantity: 1,
+...       Price: 5000
+...     },
+...     Payment: {
+...       TypeOfPayment: "Credit",
+...       TotalAmountPaid: 5000,
+...       PaymentSuccessful: false
+...     },
+...     Remark: "Damaged during shipping"
+...   },
+...   {
+...     TransactionId: "205",
+...     TransactionDate: new Date("2024-08-07"),
+...     Name: "Eva",
+...     TransactionDetails: {
+...       ItemId: "I005",
+...       ItemName: "Printer",
+...       Quantity: 1,
+...       Price: 15000
+...     },
+...     Payment: {
+...       TypeOfPayment: "Debit",
+...       TotalAmountPaid: 15000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "Urgent order"
+...   },
+...   {
+...     TransactionId: "206",
+...     TransactionDate: new Date("2024-05-06"),
+...     Name: "Suchitra",
+...     TransactionDetails: {
+...       ItemId: "I006",
+...       ItemName: "Desk Chair",
+...       Quantity: 1,
+...       Price: 2000
+...     },
+...     Payment: {
+...       TypeOfPayment: "Credit",
+...       TotalAmountPaid: 2000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "chair for the office"
+...   },
+...   {
+...     TransactionId: "207",
+...     TransactionDate: new Date("2023-09-07"),
+...     Name: "Satish",
+...     TransactionDetails: {
+...       ItemId: "I007",
+...       ItemName: "Webcam",
+...       Quantity: 3,
+...       Price: 4500
+...     },
+...     Payment: {
+...       TypeOfPayment: "Cash",
+...       TotalAmountPaid: 13500,
+...       PaymentSuccessful: true
+...     },
+...     Remark: ""
+...   },
+...   {
+...     TransactionId: "208",
+...     TransactionDate: new Date("2024-02-08"),
+...     Name: "Carol",
+...     TransactionDetails: {
+...       ItemId: "I008",
+...       ItemName: "Microphone",
+...       Quantity: 2,
+...       Price: 600
+...     },
+...     Payment: {
+...       TypeOfPayment: "Debit",
+...       TotalAmountPaid: 12000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "For virtual meetings"
+...   },
+...   {
+...     TransactionId: "209",
+...     TransactionDate: new Date("2023-05-09"),
+...     Name: "Dinesh",
+...     TransactionDetails: {
+...       ItemId: "I009",
+...       ItemName: "USB Drive",
+...       Quantity: 5,
+...       Price: 150
+...     },
+...     Payment: {
+...       TypeOfPayment: "Credit",
+...       TotalAmountPaid: 750,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "Backup storage"
+...   },
+...   {
+...     TransactionId: "2010",
+...     TransactionDate: new Date("2024-08-01"),
+...     Name: "Eva",
+...     TransactionDetails: {
+...       ItemId: "I010",
+...       ItemName: "Office Supplies",
+...       Quantity: 10,
+...       Price: 100
+...     },
+...     Payment: {
+...       TypeOfPayment: "Cash",
+...       TotalAmountPaid: 1000,
+...       PaymentSuccessful: true
+...     },
+...     Remark: "Stationery for the team"
+...   }
+... ]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("66b316962ac2ae11b0bf19b1"),
+		ObjectId("66b316962ac2ae11b0bf19b2"),
+		ObjectId("66b316962ac2ae11b0bf19b3"),
+		ObjectId("66b316962ac2ae11b0bf19b4"),
+		ObjectId("66b316962ac2ae11b0bf19b5"),
+		ObjectId("66b316962ac2ae11b0bf19b6"),
+		ObjectId("66b316962ac2ae11b0bf19b7"),
+		ObjectId("66b316962ac2ae11b0bf19b8"),
+		ObjectId("66b316962ac2ae11b0bf19b9"),
+		ObjectId("66b316962ac2ae11b0bf19ba")
+	]
+}
+
+> db.Employee.find().pretty()
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ac"),
+	"EmployeeID" : "E001",
+	"FirstName" : "Suchitra",
+	"LastName" : "Yadav",
+	"Email" : "suchitra@example.com",
+	"PhoneNo" : "860-542-1234",
+	"Address" : {
+		"HouseNo" : "1358A",
+		"Street" : "Bajirao Road",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 75000,
+	"Designation" : "Sales Manager",
+	"Experience" : 3,
+	"DateOfJoining" : ISODate("2024-04-23T00:00:00Z"),
+	"Birthdate" : ISODate("2004-09-15T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ad"),
+	"EmployeeID" : "E002",
+	"FirstName" : "Satish",
+	"LastName" : "Bhor",
+	"Email" : "satish@example.com",
+	"PhoneNo" : "111-555-5678",
+	"Address" : {
+		"HouseNo" : "25",
+		"Street" : "Ganeshwadi",
+		"City" : "Manchar",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "400200"
+	},
+	"Salary" : 68000,
+	"Designation" : "Software Engineer",
+	"Experience" : 2,
+	"DateOfJoining" : ISODate("2023-01-12T00:00:00Z"),
+	"Birthdate" : ISODate("2003-12-22T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ae"),
+	"EmployeeID" : "E003",
+	"FirstName" : "Carol",
+	"LastName" : "Williams",
+	"Email" : "carol.williams@example.com",
+	"PhoneNo" : "918-235-8765",
+	"Address" : {
+		"HouseNo" : "42",
+		"Street" : "Pine St",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62703"
+	},
+	"Salary" : 72000,
+	"Designation" : "Data Analyst",
+	"Experience" : 6,
+	"DateOfJoining" : ISODate("2017-08-09T00:00:00Z"),
+	"Birthdate" : ISODate("1983-04-10T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19af"),
+	"EmployeeID" : "E004",
+	"FirstName" : "Dinesh",
+	"LastName" : "Barve",
+	"Email" : "dbarve@example.com",
+	"PhoneNo" : "753-982-2345",
+	"Address" : {
+		"HouseNo" : "78",
+		"Street" : "Oak St",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 50000,
+	"Designation" : "HR Specialist",
+	"Experience" : 4,
+	"DateOfJoining" : ISODate("2019-11-30T00:00:00Z"),
+	"Birthdate" : ISODate("1988-03-20T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19b0"),
+	"EmployeeID" : "E005",
+	"FirstName" : "Eva",
+	"LastName" : "Davis",
+	"Email" : "eva.davis@example.com",
+	"PhoneNo" : "555-3456",
+	"Address" : {
+		"HouseNo" : "9",
+		"Street" : "Birch Rd",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62705"
+	},
+	"Salary" : 69000,
+	"Designation" : "Marketing Manager",
+	"Experience" : 7,
+	"DateOfJoining" : ISODate("2018-05-16T00:00:00Z"),
+	"Birthdate" : ISODate("1982-11-30T00:00:00Z")
+}
+> db.Transaction.find().pretty()
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b1"),
+	"TransactionId" : "201",
+	"TransactionDate" : ISODate("2024-08-01T00:00:00Z"),
+	"Name" : "Satish",
+	"TransactionDetails" : {
+		"ItemId" : "I001",
+		"ItemName" : "Laptop",
+		"Quantity" : 1,
+		"Price" : 60000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Credit",
+		"TotalAmountPaid" : 60000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "Office Laptop"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b2"),
+	"TransactionId" : "202",
+	"TransactionDate" : ISODate("2024-05-02T00:00:00Z"),
+	"Name" : "Satish",
+	"TransactionDetails" : {
+		"ItemId" : "I002",
+		"ItemName" : "Mouse",
+		"Quantity" : 2,
+		"Price" : 500
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Debit",
+		"TotalAmountPaid" : 5000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : ""
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b3"),
+	"TransactionId" : "203",
+	"TransactionDate" : ISODate("2023-05-03T00:00:00Z"),
+	"Name" : "Carol",
+	"TransactionDetails" : {
+		"ItemId" : "I003",
+		"ItemName" : "Keyboard",
+		"Quantity" : 1,
+		"Price" : 1000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Cash",
+		"TotalAmountPaid" : 1000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "For home office"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b4"),
+	"TransactionId" : "204",
+	"TransactionDate" : ISODate("2024-02-04T00:00:00Z"),
+	"Name" : "Dinesh",
+	"TransactionDetails" : {
+		"ItemId" : "I004",
+		"ItemName" : "Monitor",
+		"Quantity" : 1,
+		"Price" : 5000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Credit",
+		"TotalAmountPaid" : 5000,
+		"PaymentSuccessful" : false
+	},
+	"Remark" : "Damaged during shipping"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b5"),
+	"TransactionId" : "205",
+	"TransactionDate" : ISODate("2024-08-07T00:00:00Z"),
+	"Name" : "Eva",
+	"TransactionDetails" : {
+		"ItemId" : "I005",
+		"ItemName" : "Printer",
+		"Quantity" : 1,
+		"Price" : 15000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Debit",
+		"TotalAmountPaid" : 15000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "Urgent order"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b6"),
+	"TransactionId" : "206",
+	"TransactionDate" : ISODate("2024-05-06T00:00:00Z"),
+	"Name" : "Suchitra",
+	"TransactionDetails" : {
+		"ItemId" : "I006",
+		"ItemName" : "Desk Chair",
+		"Quantity" : 1,
+		"Price" : 2000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Credit",
+		"TotalAmountPaid" : 2000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "chair for the office"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b7"),
+	"TransactionId" : "207",
+	"TransactionDate" : ISODate("2023-09-07T00:00:00Z"),
+	"Name" : "Satish",
+	"TransactionDetails" : {
+		"ItemId" : "I007",
+		"ItemName" : "Webcam",
+		"Quantity" : 3,
+		"Price" : 4500
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Cash",
+		"TotalAmountPaid" : 13500,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : ""
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b8"),
+	"TransactionId" : "208",
+	"TransactionDate" : ISODate("2024-02-08T00:00:00Z"),
+	"Name" : "Carol",
+	"TransactionDetails" : {
+		"ItemId" : "I008",
+		"ItemName" : "Microphone",
+		"Quantity" : 2,
+		"Price" : 600
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Debit",
+		"TotalAmountPaid" : 12000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "For virtual meetings"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b9"),
+	"TransactionId" : "209",
+	"TransactionDate" : ISODate("2023-05-09T00:00:00Z"),
+	"Name" : "Dinesh",
+	"TransactionDetails" : {
+		"ItemId" : "I009",
+		"ItemName" : "USB Drive",
+		"Quantity" : 5,
+		"Price" : 150
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Credit",
+		"TotalAmountPaid" : 750,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "Backup storage"
+}
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19ba"),
+	"TransactionId" : "2010",
+	"TransactionDate" : ISODate("2024-08-01T00:00:00Z"),
+	"Name" : "Eva",
+	"TransactionDetails" : {
+		"ItemId" : "I010",
+		"ItemName" : "Office Supplies",
+		"Quantity" : 10,
+		"Price" : 100
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Cash",
+		"TotalAmountPaid" : 1000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "Stationery for the team"
+}
+
+4. Update salary of all employees by giving an increment of Rs. 4000.
+> db.Employee.updateMany({},{$inc:{"Salary":4000}})
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 5 }
+> db.Employee.find().pretty()
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ac"),
+	"EmployeeID" : "E001",
+	"FirstName" : "Suchitra",
+	"LastName" : "Yadav",
+	"Email" : "suchitra@example.com",
+	"PhoneNo" : "860-542-1234",
+	"Address" : {
+		"HouseNo" : "1358A",
+		"Street" : "Bajirao Road",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 79000,
+	"Designation" : "Sales Manager",
+	"Experience" : 3,
+	"DateOfJoining" : ISODate("2024-04-23T00:00:00Z"),
+	"Birthdate" : ISODate("2004-09-15T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ad"),
+	"EmployeeID" : "E002",
+	"FirstName" : "Satish",
+	"LastName" : "Bhor",
+	"Email" : "satish@example.com",
+	"PhoneNo" : "111-555-5678",
+	"Address" : {
+		"HouseNo" : "25",
+		"Street" : "Ganeshwadi",
+		"City" : "Manchar",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "400200"
+	},
+	"Salary" : 72000,
+	"Designation" : "Software Engineer",
+	"Experience" : 2,
+	"DateOfJoining" : ISODate("2023-01-12T00:00:00Z"),
+	"Birthdate" : ISODate("2003-12-22T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ae"),
+	"EmployeeID" : "E003",
+	"FirstName" : "Carol",
+	"LastName" : "Williams",
+	"Email" : "carol.williams@example.com",
+	"PhoneNo" : "918-235-8765",
+	"Address" : {
+		"HouseNo" : "42",
+		"Street" : "Pine St",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62703"
+	},
+	"Salary" : 76000,
+	"Designation" : "Data Analyst",
+	"Experience" : 6,
+	"DateOfJoining" : ISODate("2017-08-09T00:00:00Z"),
+	"Birthdate" : ISODate("1983-04-10T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19af"),
+	"EmployeeID" : "E004",
+	"FirstName" : "Dinesh",
+	"LastName" : "Barve",
+	"Email" : "dbarve@example.com",
+	"PhoneNo" : "753-982-2345",
+	"Address" : {
+		"HouseNo" : "78",
+		"Street" : "Oak St",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 54000,
+	"Designation" : "HR Specialist",
+	"Experience" : 4,
+	"DateOfJoining" : ISODate("2019-11-30T00:00:00Z"),
+	"Birthdate" : ISODate("1988-03-20T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19b0"),
+	"EmployeeID" : "E005",
+	"FirstName" : "Eva",
+	"LastName" : "Davis",
+	"Email" : "eva.davis@example.com",
+	"PhoneNo" : "555-3456",
+	"Address" : {
+		"HouseNo" : "9",
+		"Street" : "Birch Rd",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62705"
+	},
+	"Salary" : 73000,
+	"Designation" : "Marketing Manager",
+	"Experience" : 7,
+	"DateOfJoining" : ISODate("2018-05-16T00:00:00Z"),
+	"Birthdate" : ISODate("1982-11-30T00:00:00Z")
+}
+
+5. Update the remark for transaction id 201.
+> db.Transaction.updateOne({ TransactionId: "201" },{ $set: { Remark: "Professional use" } });
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Transaction.findOne({ TransactionId: "201" });
+{
+	"_id" : ObjectId("66b316962ac2ae11b0bf19b1"),
+	"TransactionId" : "201",
+	"TransactionDate" : ISODate("2024-08-01T00:00:00Z"),
+	"Name" : "Satish",
+	"TransactionDetails" : {
+		"ItemId" : "I001",
+		"ItemName" : "Laptop",
+		"Quantity" : 1,
+		"Price" : 60000
+	},
+	"Payment" : {
+		"TypeOfPayment" : "Credit",
+		"TotalAmountPaid" : 60000,
+		"PaymentSuccessful" : true
+	},
+	"Remark" : "Professional use"
+}
+
+6.Update designation of an employee named “Dinesh” from Hr Specialist to manager.
+> db.Employee.updateOne(
+... { FirstName: "Dinesh" },
+... { $set: { Designation: "Manager" } }
+... );
+> db.Employee.findOne({ FirstName: "Dinesh"});
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19af"),
+	"EmployeeID" : "E004",
+	"FirstName" : "Dinesh",
+	"LastName" : "Barve",
+	"Email" : "dbarve@example.com",
+	"PhoneNo" : "753-982-2345",
+	"Address" : {
+		"HouseNo" : "78",
+		"Street" : "Oak St",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 54000,
+	"Designation" : "Manager",
+	"Experience" : 4,
+	"DateOfJoining" : ISODate("2019-11-30T00:00:00Z"),
+	"Birthdate" : ISODate("1988-03-20T00:00:00Z")
+}
+
+7. Update designation of an employee having Employee Id as E005.
+>  db.Employee.updateOne(
+... { EmployeeID: "E005" },
+... { $set: { Designation: "Project Lead" } }
+...  );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Employee.findOne({ EmployeeID: "E005" });
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19b0"),
+	"EmployeeID" : "E005",
+	"FirstName" : "Eva",
+	"LastName" : "Davis",
+	"Email" : "eva.davis@example.com",
+	"PhoneNo" : "555-3456",
+	"Address" : {
+		"HouseNo" : "9",
+		"Street" : "Birch Rd",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62705"
+	},
+	"Salary" : 73000,
+	"Designation" : "Project Lead",
+	"Experience" : 7,
+	"DateOfJoining" : ISODate("2018-05-16T00:00:00Z"),
+	"Birthdate" : ISODate("1982-11-30T00:00:00Z")
+}
+
+8.Change the address of an employee having Employee Id as E003.
+> db.Employee.updateOne( { EmployeeID: "E003" },
+... {
+...     $set: {
+...       Address: {
+...         HouseNo: "19",
+...         Street: "MG Rd",
+...         City: "Gurugram",
+...         State: "DL",
+...         Country: "India",
+...         PinCode: "12565"
+...       }
+...     }
+...   }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Employee.findOne({ EmployeeID: "E003" });
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ae"),
+	"EmployeeID" : "E003",
+	"FirstName" : "Carol",
+	"LastName" : "Williams",
+	"Email" : "carol.williams@example.com",
+	"PhoneNo" : "918-235-8765",
+	"Address" : {
+		"HouseNo" : "19",
+		"Street" : "MG Rd",
+		"City" : "Gurugram",
+		"State" : "DL",
+		"Country" : "India",
+		"PinCode" : "12565"
+	},
+	"Salary" : 76000,
+	"Designation" : "Data Analyst",
+	"Experience" : 6,
+	"DateOfJoining" : ISODate("2017-08-09T00:00:00Z"),
+	"Birthdate" : ISODate("1983-04-10T00:00:00Z")
+}
+
+9. Delete transaction made by “Dinesh” employee on the given date.
+> db.Transaction.deleteOne( { Name: "Dinesh", TransactionDate: new Date("2023-05-09") } )
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+
+10. Delete all the employees whose first name starts with ‘S’.
+> db.Employee.deleteMany(
+...   {
+...     FirstName: /^S/
+...   }
+... );
+{ "acknowledged" : true, "deletedCount" : 2 }
+> db.Employee.find().pretty()
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19ae"),
+	"EmployeeID" : "E003",
+	"FirstName" : "Carol",
+	"LastName" : "Williams",
+	"Email" : "carol.williams@example.com",
+	"PhoneNo" : "918-235-8765",
+	"Address" : {
+		"HouseNo" : "19",
+		"Street" : "MG Rd",
+		"City" : "Gurugram",
+		"State" : "DL",
+		"Country" : "India",
+		"PinCode" : "12565"
+	},
+	"Salary" : 76000,
+	"Designation" : "Data Analyst",
+	"Experience" : 6,
+	"DateOfJoining" : ISODate("2017-08-09T00:00:00Z"),
+	"Birthdate" : ISODate("1983-04-10T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19af"),
+	"EmployeeID" : "E004",
+	"FirstName" : "Dinesh",
+	"LastName" : "Barve",
+	"Email" : "dbarve@example.com",
+	"PhoneNo" : "753-982-2345",
+	"Address" : {
+		"HouseNo" : "78",
+		"Street" : "Oak St",
+		"City" : "Pune",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "411030"
+	},
+	"Salary" : 54000,
+	"Designation" : "Manager",
+	"Experience" : 4,
+	"DateOfJoining" : ISODate("2019-11-30T00:00:00Z"),
+	"Birthdate" : ISODate("1988-03-20T00:00:00Z")
+}
+{
+	"_id" : ObjectId("66b312df2ac2ae11b0bf19b0"),
+	"EmployeeID" : "E005",
+	"FirstName" : "Eva",
+	"LastName" : "Davis",
+	"Email" : "eva.davis@example.com",
+	"PhoneNo" : "555-3456",
+	"Address" : {
+		"HouseNo" : "9",
+		"Street" : "Birch Rd",
+		"City" : "Springfield",
+		"State" : "IL",
+		"Country" : "USA",
+		"PinCode" : "62705"
+	},
+	"Salary" : 73000,
+	"Designation" : "Project Lead",
+	"Experience" : 7,
+	"DateOfJoining" : ISODate("2018-05-16T00:00:00Z"),
+	"Birthdate" : ISODate("1982-11-30T00:00:00Z")
+}
+

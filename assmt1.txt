@@ -1,0 +1,946 @@
+> db.Film.insertOne(
+... {
+... "Film Id": 1,
+... "Title": "Romantic Sunset",
+... "Year of release": 2022,
+... "Genre": ["Romantic"],
+... "Actors": [{ "First name": "Alice", "Lastname": "Johnson" },{ "First name": "Bob", "Lastname": "Williams" }],
+... "Director": [{ "First name": "Emily", "Lastname": "Director" }],
+... "Release Details": [{"Place of release":"Paris","Date of release":Date("2022-10-15"),"Rating": 4.0},{"Place of release":"London","Date of release":ISODate("2022-10-20"),"Rating": 3.8}
+... ]
+... }
+... )
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66a9cbd429648b63189173c2")
+}
+> db.Film.insertOne(
+... {
+... "Film Id": 2,
+... "Title": "Inception",
+... "Year of release": 2010,
+... "Genre": ["Sci-fi","Thriller"],
+... "Actors": [{ "First name": "Leonardo", "Lastname": "DiCaprio" }],
+... "Director": [{ "First name": "Christopher", "Lastname": "Nolan" }],
+... "Release Details": [{"Place of release":"UK","Date of release":Date("2010-7-8"),"Rating": 4.0}
+... ]
+... }
+... )
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66a9cfcd29648b63189173c3")
+}
+> db.Film.insertOne(
+... {
+... "Film Id": 3,
+... "Title": "Maharaja",
+... "Year of release": 2024,
+... "Genre": ["Action","Thriller"],
+... "Actors": [{ "First name": "Vijay", "Lastname": "Sethupati" }],
+... "Director": [{ "First name": "Nithilan", "Lastname": "Swaminathan" }],
+... "Release Details": [{"Place of release":"India","Date of release":Date("2024-6-14"),"Rating": 3.8}
+... ]
+... }
+... )
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66a9d14a29648b63189173c4")
+}
+> db.Film.insertOne(
+... {
+... "Film Id": 4,
+... "Title": "Mr & Mrs Mahu",
+... "Year of release": 2024,
+... "Genre": ["Romantic"],
+... "Actors": [{ "First name": "Rajkumar", "Lastname": "Rao" }],
+... "Director": [{ "First name": "Sharan", "Lastname": "Sharma" }],
+... "Release Details": [{"Place of release":"India","Date of release":Date("2024-5-32"),"Rating": 3.9}
+... ]
+... }
+... )
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66a9d1e929648b63189173c5")
+}
+> db.Film.insertOne(
+... {
+... "Film Id": 5,
+... "Title": "Kalki",
+... "Year of release": 2024,
+... "Genre": ["Mytholog","Sci-fi"],
+... "Actors": [{ "First name": "Amitabh", "Lastname": "Bacchan" }],
+... "Director": [{ "First name": "Nag", "Lastname": "Ashwin" }],
+... "Release Details": [{"Place of release":"India","Date of release":Date("2024-6-27"),"Rating": 4.5}
+... ]
+... }
+... )
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66a9d2d629648b63189173c6")
+}
+> db.Film.insertMany([
+...   {
+...     "FilmId": 6,
+...     "Title": "Devdas",
+...     "Yearofrelease": 2002,
+...     "Genre": ["Drama"],
+...     "Actors": [{ "Firstname": "Madhuri", "Lastname": "Dixit" }, { "Firstname": "Shahrukh", "Lastname": "Khan" }],
+...     "Director": [{ "Firstname": "Sanjay", "Lastname": "Bhansali" }],
+...     "ReleaseDetails": [{ "Placeofrelease": "India", "Dateofrelease": ISODate("2002-07-12"), "Rating": 4.2 }]
+...   },
+...   {
+...     "FilmId": 7,
+...     "Title": "Dil toh pagal hai",
+...     "Yearofrelease": 1997,
+...     "Genre": ["Romantic"],
+...     "Actors": [{ "Firstname": "Madhuri", "Lastname": "Dixit" }, { "Firstname": "Shahrukh", "Lastname": "Khan" }],
+...     "Director": [{ "Firstname": "Yash", "Lastname": "Chopra" }],
+...     "ReleaseDetails": [{ "Placeofrelease": "India", "Dateofrelease": ISODate("1997-10-30"), "Rating": 3.5 }]
+...   },
+...   {
+...     "FilmId": 8,
+...     "Title": "Sanju",
+...     "Yearofrelease": 2018,
+...     "Genre": ["Biopic"],
+...     "Actors": [{ "Firstname": "Sanjay", "Lastname": "Dutt" }],
+...     "Director": [{ "Firstname": "Rajkumar", "Lastname": "Hirani" }],
+...     "ReleaseDetails": [{ "Placeofrelease": "India", "Dateofrelease": ISODate("2018-06-29"), "Rating": 3.2 }]
+...   },
+...   {
+...     "FilmId": 9,
+...     "Title": "Three Idiots",
+...     "Yearofrelease": 2009,
+...     "Genre": ["Romantic"],
+...     "Actors": [{ "Firstname": "Aamir", "Lastname": "Khan" }],
+...     "Director": [{ "Firstname": "Rajkumar", "Lastname": "Hirani" }],
+...     "ReleaseDetails": [{ "Placeofrelease": "India", "Dateofrelease": ISODate("2009-12-25"), "Rating": 4.6 }]
+...   },
+...   {
+...     "FilmId": 10,
+...     "Title": "PK",
+...     "Yearofrelease": 2014,
+...     "Genre": ["Comedy"],
+...     "Actors": [{ "Firstname": "Aamir", "Lastname": "Khan" }],
+...     "Director": [{ "Firstname": "Rajkumar", "Lastname": "Hirani" }],
+...     "ReleaseDetails": [{ "Placeofrelease": "India", "Dateofrelease": ISODate("2014-10-30"), "Rating": 3.5 }]
+...   }
+... ])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("66a9dffcdb5b0c76f743f8a7"),
+		ObjectId("66a9dffcdb5b0c76f743f8a8"),
+		ObjectId("66a9dffcdb5b0c76f743f8a9"),
+		ObjectId("66a9dffcdb5b0c76f743f8aa"),
+		ObjectId("66a9dffcdb5b0c76f743f8ab")
+	]
+}
+
+> db.Actor.insertOne({
+...   "ActorId": 1,
+...   "FirstName": "Alice",
+...   "LastName": "Johnson",
+...   "Address": {
+...     "Street": "123 Elm Street",
+...     "City": "New York",
+...     "State": "NY",
+...     "Country": "USA",
+...     "PinCode": "10001"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "alice.johnson@example.com",
+...     "PhoneNo": "+1-555-0100"
+...   },
+...   "Age": 30
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2f83276a5bea92da8d66b")
+}
+> 
+> db.Actor.insertOne({
+...   "ActorId": 2,
+...   "FirstName": "Bob",
+...   "LastName": "Williams",
+...   "Address": {
+...     "Street": "456 Oak Avenue",
+...     "City": "Los Angeles",
+...     "State": "CA",
+...     "Country": "USA",
+...     "PinCode": "90001"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "bob.williams@example.com",
+...     "PhoneNo": "+1-555-0101"
+...   },
+...   "Age": 35
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2f83276a5bea92da8d66c")
+}
+> 
+> db.Actor.insertOne({
+...   "ActorId": 3,
+...   "FirstName": "Leonardo",
+...   "LastName": "DiCaprio",
+...   "Address": {
+...     "Street": "789 Pine Road",
+...     "City": "Los Angeles",
+...     "State": "CA",
+...     "Country": "USA",
+...     "PinCode": "90001"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "leonardo.dicaprio@example.com",
+...     "PhoneNo": "+1-555-0102"
+...   },
+...   "Age": 49
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2f83276a5bea92da8d66d")
+}
+> 
+> db.Actor.insertOne({
+...   "ActorId": 4,
+...   "FirstName": "Vijay",
+...   "LastName": "Sethupati",
+...   "Address": {
+...     "Street": "1011 Maple Street",
+...     "City": "Chennai",
+...     "State": "TN",
+...     "Country": "India",
+...     "PinCode": "600001"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "vijay.sethupati@example.com",
+...     "PhoneNo": "+91-555-0103"
+...   },
+...   "Age": 47
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2f83276a5bea92da8d66e")
+}
+> 
+> db.Actor.insertOne({
+...   "ActorId": 5,
+...   "FirstName": "Rajkumar",
+...   "LastName": "Rao",
+...   "Address": {
+...     "Street": "1213 Birch Lane",
+...     "City": "Mumbai",
+...     "State": "MH",
+...     "Country": "India",
+...     "PinCode": "400001"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "rajkumar.rao@example.com",
+...     "PhoneNo": "+91-555-0104"
+...   },
+...   "Age": 39
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2f83276a5bea92da8d66f")
+}
+
+> db.Film.find({ "Director.Firstname": "Sanjay", "Director.Lastname": "Bhansali" }).pretty()
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8a7"),
+	"FilmId" : 6,
+	"Title" : "Devdas",
+	"Yearofrelease" : 2002,
+	"Genre" : [
+		"Drama",
+		"Romance"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Madhuri",
+			"Lastname" : "Dixit"
+		},
+		{
+			"Firstname" : "Shahrukh",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Sanjay",
+			"Lastname" : "Bhansali"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2002-07-12T00:00:00Z"),
+			"Rating" : 4.2
+		}
+	]
+}
+> db.Film.find().pretty()
+{
+	"_id" : ObjectId("66a9cbd429648b63189173c2"),
+	"Film Id" : 1,
+	"Title" : "Romantic Sunset",
+	"Year of release" : 2022,
+	"Genre" : [
+		"Romantic"
+	],
+	"Actors" : [
+		{
+			"First name" : "Alice",
+			"Lastname" : "Johnson"
+		},
+		{
+			"First name" : "Bob",
+			"Lastname" : "Williams"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Emily",
+			"Lastname" : "Director"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "Paris",
+			"Date of release" : "Wed Jul 31 2024 10:59:56 GMT+0530 (IST)",
+			"Rating" : 4
+		},
+		{
+			"Place of release" : "London",
+			"Date of release" : ISODate("2022-10-20T00:00:00Z"),
+			"Rating" : 3.8
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9cfcd29648b63189173c3"),
+	"Film Id" : 2,
+	"Title" : "Inception",
+	"Year of release" : 2010,
+	"Genre" : [
+		"Sci-fi",
+		"Thriller"
+	],
+	"Actors" : [
+		{
+			"First name" : "Leonardo",
+			"Lastname" : "DiCaprio"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Christopher",
+			"Lastname" : "Nolan"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "UK",
+			"Date of release" : "Wed Jul 31 2024 11:16:53 GMT+0530 (IST)",
+			"Rating" : 4
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9d14a29648b63189173c4"),
+	"Film Id" : 3,
+	"Title" : "Maharaja",
+	"Year of release" : 2024,
+	"Genre" : [
+		"Action",
+		"Thriller"
+	],
+	"Actors" : [
+		{
+			"First name" : "Vijay",
+			"Lastname" : "Sethupati"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Nithilan",
+			"Lastname" : "Swaminathan"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "India",
+			"Date of release" : "Wed Jul 31 2024 11:23:14 GMT+0530 (IST)",
+			"Rating" : 3.8
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9d1e929648b63189173c5"),
+	"Film Id" : 4,
+	"Title" : "Mr & Mrs Mahu",
+	"Year of release" : 2024,
+	"Genre" : [
+		"Romantic"
+	],
+	"Actors" : [
+		{
+			"First name" : "Rajkumar",
+			"Lastname" : "Rao"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Sharan",
+			"Lastname" : "Sharma"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "India",
+			"Date of release" : "Wed Jul 31 2024 11:25:53 GMT+0530 (IST)",
+			"Rating" : 3.9
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9d2d629648b63189173c6"),
+	"Film Id" : 5,
+	"Title" : "Kalki",
+	"Year of release" : 2024,
+	"Genre" : [
+		"Mytholog",
+		"Sci-fi"
+	],
+	"Actors" : [
+		{
+			"First name" : "Amitabh",
+			"Lastname" : "Bacchan"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Nag",
+			"Lastname" : "Ashwin"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "India",
+			"Date of release" : "Wed Jul 31 2024 11:29:50 GMT+0530 (IST)",
+			"Rating" : 4.5
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8a7"),
+	"FilmId" : 6,
+	"Title" : "Devdas",
+	"Yearofrelease" : 2002,
+	"Genre" : [
+		"Drama",
+		"Romance"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Madhuri",
+			"Lastname" : "Dixit"
+		},
+		{
+			"Firstname" : "Shahrukh",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Sanjay",
+			"Lastname" : "Bhansali"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2002-07-12T00:00:00Z"),
+			"Rating" : 4.2
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8a8"),
+	"FilmId" : 7,
+	"Title" : "Dil toh pagal hai",
+	"Yearofrelease" : 1997,
+	"Genre" : [
+		"Romantic"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Madhuri",
+			"Lastname" : "Dixit"
+		},
+		{
+			"Firstname" : "Shahrukh",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Yash",
+			"Lastname" : "Chopra"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("1997-10-30T00:00:00Z"),
+			"Rating" : 3.5
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8aa"),
+	"FilmId" : 9,
+	"Title" : "Three Idiots",
+	"Yearofrelease" : 2009,
+	"Genre" : [
+		"Romantic"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Aamir",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Rajkumar",
+			"Lastname" : "Hirani"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2009-12-25T00:00:00Z"),
+			"Rating" : 5.1
+		}
+	]
+}
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8ab"),
+	"FilmId" : 10,
+	"Title" : "PK",
+	"Yearofrelease" : 2014,
+	"Genre" : [
+		"Comedy"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Aamir",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Rajkumar",
+			"Lastname" : "Hirani"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2014-10-30T00:00:00Z"),
+			"Rating" : 3.5
+		}
+	]
+}
+{
+	"_id" : ObjectId("66b2fb3476a5bea92da8d676"),
+	"Film Id" : 11,
+	"Title" : "URI",
+	"Year of release" : 2019,
+	"Genre" : [
+		"Action"
+	],
+	"Actors" : [
+		{
+			"First name" : "Vicky",
+			"Lastname" : "Kaushal"
+		}
+	],
+	"Director" : [
+		{
+			"First name" : "Aditya",
+			"Lastname" : "Dhar"
+		}
+	],
+	"Release Details" : [
+		{
+			"Place of release" : "India",
+			"Date of release" : ISODate("2024-01-11T00:00:00Z"),
+			"Rating" : 4.2
+		}
+	]
+}
+
+> db.Actor.find().pretty()
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66b"),
+	"ActorId" : 1,
+	"FirstName" : "Alice",
+	"LastName" : "Johnson",
+	"Address" : {
+		"Street" : "123 Elm Street",
+		"City" : "New York",
+		"State" : "NY",
+		"Country" : "USA",
+		"PinCode" : "10001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "alice.johnson@example.com",
+		"PhoneNo" : "+1-555-0100"
+	},
+	"Age" : 30
+}
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66c"),
+	"ActorId" : 2,
+	"FirstName" : "Bob",
+	"LastName" : "Williams",
+	"Address" : {
+		"Street" : "456 Oak Avenue",
+		"City" : "Los Angeles",
+		"State" : "CA",
+		"Country" : "USA",
+		"PinCode" : "90001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "bob.williams@example.com",
+		"PhoneNo" : "+1-555-0101"
+	},
+	"Age" : 35
+}
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66d"),
+	"ActorId" : 3,
+	"FirstName" : "Leonardo",
+	"LastName" : "DiCaprio",
+	"Address" : {
+		"Street" : "789 Pine Road",
+		"City" : "Los Angeles",
+		"State" : "CA",
+		"Country" : "USA",
+		"PinCode" : "90001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "leonardo.dicaprio@example.com",
+		"PhoneNo" : "+1-555-0102"
+	},
+	"Age" : 49
+}
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66e"),
+	"ActorId" : 4,
+	"FirstName" : "Vijay",
+	"LastName" : "Sethupati",
+	"Address" : {
+		"Street" : "1011 Maple Street",
+		"City" : "Chennai",
+		"State" : "TN",
+		"Country" : "India",
+		"PinCode" : "600001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "vijay.sethupati@example.com",
+		"PhoneNo" : "+91-555-0103"
+	},
+	"Age" : 47
+}
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66f"),
+	"ActorId" : 5,
+	"FirstName" : "Rajkumar",
+	"LastName" : "Rao",
+	"Address" : {
+		"Street" : "1213 Birch Lane",
+		"City" : "Mumbai",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "400001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "rajkumar.rao@example.com",
+		"PhoneNo" : "+91-555-0104"
+	},
+	"Age" : 39
+}
+> db.Actor.insertMany([
+...   {
+...     "ActorId": 6,
+...     "FirstName": "Amitabh",
+...     "LastName": "Bacchan",
+...     "Address": {
+...       "Street": "1415 Cedar Street",
+...       "City": "Delhi",
+...       "State": "DL",
+...       "Country": "India",
+...       "PinCode": "110001"
+...     },
+...     "ContactDetails": {
+...       "EmailId": "amitabh.bacchan@example.com",
+...       "PhoneNo": "+91-555-0105"
+...     },
+...     "Age": 81
+...   },
+...   {
+...     "ActorId": 7,
+...     "FirstName": "Madhuri",
+...     "LastName": "Dixit",
+...     "Address": {
+...       "Street": "1617 Spruce Drive",
+...       "City": "Mumbai",
+...       "State": "MH",
+...       "Country": "India",
+...       "PinCode": "400002"
+...     },
+...     "ContactDetails": {
+...       "EmailId": "madhuri.dixit@example.com",
+...       "PhoneNo": "+91-555-0106"
+...     },
+...     "Age": 57
+...   },
+...   {
+...     "ActorId": 8,
+...     "FirstName": "Shahrukh",
+...     "LastName": "Khan",
+...     "Address": {
+...       "Street": "1819 Fir Street",
+...       "City": "Mumbai",
+...       "State": "MH",
+...       "Country": "India",
+...       "PinCode": "400003"
+...     },
+...     "ContactDetails": {
+...       "EmailId": "shahrukh.khan@example.com",
+...       "PhoneNo": "+91-555-0107"
+...     },
+...     "Age": 58
+...   },
+...   {
+...     "ActorId": 9,
+...     "FirstName": "Sanjay",
+...     "LastName": "Dutt",
+...     "Address": {
+...       "Street": "2021 Willow Way",
+...       "City": "Mumbai",
+...       "State": "MH",
+...       "Country": "India",
+...       "PinCode": "400004"
+...     },
+...     "ContactDetails": {
+...       "EmailId": "sanjay.dutt@example.com",
+...       "PhoneNo": "+91-555-0108"
+...     },
+...     "Age": 64
+...   },
+...   {
+...     "ActorId": 10,
+...     "FirstName": "Aamir",
+...     "LastName": "Khan",
+...     "Address": {
+...       "Street": "2223 Pine Avenue",
+...       "City": "Mumbai",
+...       "State": "MH",
+...       "Country": "India",
+...       "PinCode": "400005"
+...     },
+...     "ContactDetails": {
+...       "EmailId": "aamir.khan@example.com",
+...       "PhoneNo": "+91-555-0109"
+...     },
+...     "Age": 59
+...   }
+... ]);
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("66b2f86476a5bea92da8d670"),
+		ObjectId("66b2f86476a5bea92da8d671"),
+		ObjectId("66b2f86476a5bea92da8d672"),
+		ObjectId("66b2f86476a5bea92da8d673"),
+		ObjectId("66b2f86476a5bea92da8d674")
+	]
+}
+> 
+
+
+4. Add a value to the rating of the film whose title starts with ‘T’.
+> db.Film.updateOne(
+...   { Title: /^T/ },
+...   { $inc: { "ReleaseDetails.$[].Rating": 0.5 } }
+... )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.Film.find({ Title: /^T/ }).pretty()
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8aa"),
+	"FilmId" : 9,
+	"Title" : "Three Idiots",
+	"Yearofrelease" : 2009,
+	"Genre" : [
+		"Romantic"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Aamir",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Rajkumar",
+			"Lastname" : "Hirani"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2009-12-25T00:00:00Z"),
+			"Rating" : 5.1
+		}
+	]
+}
+
+5. Add an actor named "__Vicky_Kaushal__" in the ‘Actor’ collection.
+Also add the details of the film in ‘Film’ collection in which this actor
+has acted in.
+
+> db.Actor.insertOne({
+...   "ActorId": 11,
+...   "FirstName": "Vicky",
+...   "LastName": "Kaushal",
+...   "Address": {
+...     "Street": "3030 Coral Street",
+...     "City": "Mumbai",
+...     "State": "MH",
+...     "Country": "India",
+...     "PinCode": "400006"
+...   },
+...   "ContactDetails": {
+...     "EmailId": "vicky.kaushal@example.com",
+...     "PhoneNo": "+91-555-0110"
+...   },
+...   "Age": 35
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2fa4c76a5bea92da8d675")
+}
+> db.Film.insertOne(
+...   {
+...   "Film Id": 11,
+...   "Title": "URI",
+...   "Year of release": 2019,
+...   "Genre": ["Action"],
+...   "Actors": [{ "First name": "Vicky", "Lastname": "Kaushal" }],
+...   "Director": [{ "First name": "Aditya", "Lastname": "Dhar" }],
+...   "Release Details": [{
+...       "Place of release": "India",
+...       "Date of release": ISODate("2024-01-11"),
+...       "Rating": 4.2
+...     }]
+... });
+{
+	"acknowledged" : true,
+	"insertedId" : ObjectId("66b2fb3476a5bea92da8d676")
+}
+
+6. Delete the film "_Sanju_".
+> db.Film.deleteOne({ "Title": "Sanju" });
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+7. Delete an actor named "_Vicky_".
+> db.Actor.deleteOne({  "FirstName": "Vicky"});
+{ "acknowledged" : true, "deletedCount" : 1 }
+
+8. Delete all actors from an ‘Actor’ collection who have age greater than 60
+> db.Actor.deleteMany({"Age":{$gt:60}})
+{ "acknowledged" : true, "deletedCount" : 2 }
+
+9. Update the actor’s address where Actor Id is “ 4”.
+> db.Actor.updateOne(
+...   { "ActorId": 4 },
+...   {
+...     $set: {
+...       "Address": {
+...         "Street": "103 MG Road",
+...         "City": "Mumbai",
+...         "State": "MH",
+...         "Country": "India",
+...         "PinCode": "400001"
+...       }
+...     }
+...   }
+... );
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+> db.Actor.find({ "ActorId": 4 }).pretty();
+{
+	"_id" : ObjectId("66b2f83276a5bea92da8d66e"),
+	"ActorId" : 4,
+	"FirstName" : "Vijay",
+	"LastName" : "Sethupati",
+	"Address" : {
+		"Street" : "103 MG Road",
+		"City" : "Mumbai",
+		"State" : "MH",
+		"Country" : "India",
+		"PinCode" : "400001"
+	},
+	"ContactDetails" : {
+		"EmailId" : "vijay.sethupati@example.com",
+		"PhoneNo" : "+91-555-0103"
+	},
+	"Age" : 47
+}
+
+10. Update the genre of the film directed by “Sanjay Bhansali”.
+> db.Film.update(
+...   { "Director.Firstname": "Sanjay", "Director.Lastname": "Bhansali" },
+...   { $set: { "Genre": ["Drama", "Romance"] } }
+... );
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Film.find({ "Director.Firstname": "Sanjay", "Director.Lastname": "Bhansali" }).pretty()
+{
+	"_id" : ObjectId("66a9dffcdb5b0c76f743f8a7"),
+	"FilmId" : 6,
+	"Title" : "Devdas",
+	"Yearofrelease" : 2002,
+	"Genre" : [
+		"Drama",
+		"Romance"
+	],
+	"Actors" : [
+		{
+			"Firstname" : "Madhuri",
+			"Lastname" : "Dixit"
+		},
+		{
+			"Firstname" : "Shahrukh",
+			"Lastname" : "Khan"
+		}
+	],
+	"Director" : [
+		{
+			"Firstname" : "Sanjay",
+			"Lastname" : "Bhansali"
+		}
+	],
+	"ReleaseDetails" : [
+		{
+			"Placeofrelease" : "India",
+			"Dateofrelease" : ISODate("2002-07-12T00:00:00Z"),
+			"Rating" : 4.2
+		}
+	]
+}
+
+

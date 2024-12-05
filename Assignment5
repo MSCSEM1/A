@@ -1,0 +1,166 @@
+Assignment 5:
+
+### 1. **Library Database**
+
+a) List all people who have issued a book “...”
+
+MATCH (person:Person)-[:ISSUED_BY]->(book:Book {title: '...'})
+RETURN person.name
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+b) Count the number of people who have read “...”
+
+MATCH (person:Person)-[:RECOMMENDED]->(book:Book {title: '...'})
+RETURN COUNT(person) AS readers
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) Add a property “Number of books issued” for Mr. Joshi and set its value as the count
+
+MATCH (person:Person {name: 'Mr. Joshi'})-[:ISSUED_BY]->(book:Book)
+SET person.number_of_books_issued = COUNT(book)
+RETURN person
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+d) List the names of publishers from Pune city
+
+MATCH (publisher:Publisher {city: 'Pune'})
+RETURN publisher.name
+
+******************************************************************************************************************************************************
+
+### 2. **Song Database**
+
+a) List the names of songs written by “...”
+
+MATCH (song:Song)-[:WRITTEN_BY]->(author:Person {name: '...'})
+RETURN song.title
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+b) List the names of record companies who have financed for the song “...”
+
+MATCH (company:RecordingCompany)-[:FINANCES]->(song:Song {title: '...'})
+RETURN company.name
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) List the names of artists performing the song “...”
+
+MATCH (artist:Artist)-[:PERFORMS]->(song:Song {title: '...'})
+RETURN artist.name
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+d) Name the songs recorded by the studio “...”
+
+MATCH (song:Song)-[:RECORDED_IN]->(studio:RecordingStudio {name: '...'})
+RETURN song.title
+
+******************************************************************************************************************************************************
+
+### 3. **Employee Database**
+
+a) List the names of employees in the department “...”
+
+MATCH (employee:Employee)-[:WORKS_IN]->(department:Department {name: '...'})
+RETURN employee.name
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#### b) List the projects along with their properties, controlled by department “...”
+
+MATCH (project:Project)-[:CONTROLLED_BY]->(department:Department {name: '...'})
+RETURN project
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) List the departments along with the count of employees in it
+
+MATCH (employee:Employee)-[:WORKS_IN]->(department:Department)
+RETURN department.name, COUNT(employee) AS employee_count
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+d) List the skillset for an employee “...”
+
+MATCH (employee:Employee {name: '...'})-[:HAS_ACQUIRED]->(skill:Skillset)
+RETURN skill.name
+
+******************************************************************************************************************************************************
+
+4. **Movie Database**
+
+a) Find all actors who have acted in a movie “...”
+
+MATCH (actor:Actor)-[:ACTED_IN]->(movie:Movie {title: '...'})
+RETURN actor.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+b) Find all reviewer pairs, one following the other and both reviewing the same movie, and return entire subgraphs
+
+MATCH (reviewer1:Person)-[:FOLLOWS]->(reviewer2:Person),
+      (reviewer1)-[:REVIEWED]->(movie:Movie),
+      (reviewer2)-[:REVIEWED]->(movie)
+RETURN reviewer1, reviewer2, movie
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) Find all actors that acted in a movie together after 2010 and return the actor names and movie node
+
+MATCH (actor1:Actor)-[:ACTED_IN]->(movie:Movie {release_year: '>2010'}),
+      (actor2:Actor)-[:ACTED_IN]->(movie)
+RETURN actor1.name, actor2.name, movie
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+d) Find all movies produced by “...”
+
+MATCH (movie:Movie)-[:PRODUCED_BY]->(producer:Person {name: '...'})
+RETURN movie.title
+
+*******************************************************************************************************************************************************
+ 5. **Social Network Database**
+
+a) Find all friends of “John”, along with the year since when John knows them
+
+MATCH (john:Person {name: 'John'})-[rel:FRIEND_OF]->(friend:Person)
+RETURN friend.name, rel.since
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+b) List out the affiliations of John
+
+MATCH (john:Person {name: 'John'})-[:AFFILIATED_TO]->(affiliation:Affiliation)
+RETURN affiliation.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+c) Find all friends of John, who are born in the same year as John
+
+MATCH (john:Person {name: 'John'}), 
+      (john)-[:FRIEND_OF]->(friend:Person)
+WHERE john.birth_year = friend.birth_year
+RETURN friend.name
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+d) List out the messages posted by John in his timeline during the year 2015
+
+MATCH (john:Person {name: 'John'})-[:CREATES]->(timeline:Timeline),
+      (timeline)-[:CONTAINS]->(message:Message)
+WHERE timeline.year = 2015
+RETURN message
+
+
+
+
+
+
+
+
+
+

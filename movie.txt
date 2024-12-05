@@ -1,0 +1,53 @@
+
+
+╒══════════════════════════════════════════════════════════════════════╕
+│n                                                                     │
+╞══════════════════════════════════════════════════════════════════════╡
+│(:Actor {nationality: "American",awards: ["Oscar", "BAFTA"],date_of_bi│
+│rth: "1974-1111",name: "LeonardoDiCaprio",actor_id: 1})               │
+├──────────────────────────────────────────────────────────────────────┤
+│(:Movie {genre: ["Sci-Fi", "Thriller"],rating: 8.8,release_year: 2010,│
+│movie_id: 1,title: "Inception"})                                      │
+├──────────────────────────────────────────────────────────────────────┤
+│(:Role {role_id: 1,character_name: "Dom Cobb",description: "A skilled │
+│thief who steals secrets from deep within the subconscious."})        │
+└──────────────────────────────────────────────────────────────────────┘
+~                                        // Create Producer nodes
+CREATE(p:Producer{producer_id:1,name:'EmmaThomas',production_company:'Syncopy', awards: ['Oscar']})
+
+╒══════════════════════════════════════════════════════════════════════╕
+│p                                                                     │
+╞══════════════════════════════════════════════════════════════════════╡
+│(:Producer {awards: ["Oscar"],name: "EmmaThomas",producer_id: 1,produc│
+│tion_company: "Syncopy"})                                             │
+└──────────────────────────────────────────────────────────────────────┘
+// Create Financier nodes
+CREATE (f:Financier {financier_id: 1, name: 'Warner Bros', investment_amount: 160000000, country: 'USA'})
+╒══════════════════════════════════════════════════════════════════════╕
+│f                                                                     │
+╞══════════════════════════════════════════════════════════════════════╡
+│(:Financier {country: "USA",financier_id: 1,name: "Warner Bros",invest│
+│ment_amount: 160000000})                                              │
+└──────────────────────────────────────────────────────────────────────┘
+// Create Director nodes
+CREATE (d:Director {director_id: 1, name: 'Christopher Nolan', awards: ['Oscar']})
+Added 1 label, created 1 node, set 3 properties, completed after 10 ms.
+// Create relationships
+MATCH (a:Actor {actor_id: 1}), (m:Movie {movie_id: 1}), (r:Role {role_id: 1}), (p:Producer {producer_id: 1}), (f:Financier {financier_id: 1}), (d:Director {director_id: 1})
+CREATE (a)-[:ACTED_IN {role_id: 1, screen_time: 148}]->(m)
+CREATE (m)-[:HAS_ROLE {importance: 'main'}]->(r)
+CREATE (m)-[:PRODUCED_BY {budget: 160000000}]->(p)
+CREATE (m)-[:FINANCED_BY {investment_amount: 160000000}]->(f)
+CREATE (m)-[:DIRECTED_BY {directing_style: 'Non-linear narrative'}]->(d)return a,p,r,d
+╒══════════════════════════════════════════════════════════════════════╤══════════════════════════════════════════════════════════════════════╤══════════════════════════════════════════════════════════════════════╤══════════════════════════════════════════════════════════════════════╕
+│a                                                                     │p                                                                     │r                                                                     │d                                                                     │
+╞══════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════╪══════════════════════════════════════════════════════════════════════╡
+│(:Actor {nationality: "American",awards: ["Oscar", "BAFTA"],date_of_bi│(:Producer {awards: ["Oscar"],name: "EmmaThomas",producer_id: 1,produc│(:Role {role_id: 1,character_name: "Dom Cobb",description: "A skilled │(:Director {awards: ["Oscar"],name: "Christopher Nolan",director_id: 1│
+│rth: "1974-1111",name: "LeonardoDiCaprio",actor_id: 1})               │tion_company: "Syncopy"})                                             │thief who steals secrets from deep within the subconscious."})        │})                                                                    │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
+│(:Actor {nationality: "American",awards: ["Oscar", "BAFTA"],date_of_bi│(:Producer {awards: ["Oscar"],name: "EmmaThomas",producer_id: 1,produc│(:Role {role_id: 1,character_name: "Dom Cobb",description: "A skilled │(:Director {awards: ["Oscar"],name: "Christopher Nolan",director_id: 1│
+│rth: "1974-1111",name: "LeonardoDiCaprio",actor_id: 1})               │tion_company: "Syncopy"})                                             │thief who steals secrets from deep within the subconscious."})        │})                                                                    │
+└──────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────┘
+MATCH (m:Movie {title: 'Inception'})<-[:ACTED_IN]-(a:Actor)
+RETURN a.name, a.nationality
+

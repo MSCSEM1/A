@@ -1,0 +1,229 @@
+Q1)
+db.Employee.find({$or:[{'Designation':"Manager"},{'Designation':"Floor Supervisor"}]}).pretty()
+{
+	"_id" : ObjectId("6524c5990be08a208a880e96"),
+	"EmpId" : 1001,
+	"First_Name" : "Tom",
+	"Last_Name" : "Dias",
+	"EmailId" : "tomdias@gmail.com",
+	"Phone_no" : 9012345645,
+	"Address" : {
+		"House_no" : 4.333333333333333,
+		"Street" : "Pheonix Street",
+		"City" : "Hungju",
+		"State" : "Shanghai",
+		"Country" : "China",
+		"PinCode" : 9123
+	},
+	"Salary" : 49000,
+	"Designation" : "Manager",
+	"Experience" : "5 years",
+	"Joining_Date" : "30-05-2018",
+	"DOB" : "04-10-1988"
+}
+
+//Trial
+> db.Employee.find({$or:[{'Designation':"Manager"},{'Designation':"Quality Analyst"}]}).pretty()
+{
+	"_id" : ObjectId("6524c5990be08a208a880e96"),
+	"EmpId" : 1001,
+	"First_Name" : "Tom",
+	"Last_Name" : "Dias",
+	"EmailId" : "tomdias@gmail.com",
+	"Phone_no" : 9012345645,
+	"Address" : {
+		"House_no" : 4.333333333333333,
+		"Street" : "Pheonix Street",
+		"City" : "Hungju",
+		"State" : "Shanghai",
+		"Country" : "China",
+		"PinCode" : 9123
+	},
+	"Salary" : 49000,
+	"Designation" : "Manager",
+	"Experience" : "5 years",
+	"Joining_Date" : "30-05-2018",
+	"DOB" : "04-10-1988"
+}
+{
+	"_id" : ObjectId("6524c8d20be08a208a880e98"),
+	"EmpId" : 1003,
+	"First_Name" : "Shubhan",
+	"Last_Name" : "Joshi",
+	"EmailId" : "shubhjoshi55@gmail.com",
+	"Phone_no" : 5623412456,
+	"Address" : {
+		"House_no" : "100/205",
+		"Street" : "ABC Marg",
+		"City" : "Pune",
+		"State" : "Maharashtra",
+		"Country" : "India",
+		"PinCode" : 123456
+	},
+	"Salary" : 99000,
+	"Designation" : "Quality Analyst",
+	"Experience" : "7 years",
+	"Joining_Date" : "27-08-2020",
+	"DOB" : "23-04-1990"
+}
+Q2) 
+var demo=db.Employee.find({'First_Name':{$regex:"l$"}})
+> demo.forEach(printjson)
+{
+	"_id" : ObjectId("6524cbb50be08a208a880e9a"),
+	"EmpId" : 1005,
+	"First_Name" : "Minal",
+	"Last_Name" : "Gajera",
+	"EmailId" : "gajeraminal@gmail.com",
+	"Phone_no" : 3214569012,
+	"Address" : {
+		"House_no" : "10/A10",
+		"Street" : "Indira Gandhi Street",
+		"City" : "Yellur",
+		"State" : "Karnataka",
+		"Country" : "India",
+		"PinCode" : 400135
+	},
+	"Salary" : 54000,
+	"Designation" : "Senior Counciler",
+	"Experience" : "0 year",
+	"Joining_Date" : "14-09-2023",
+	"DOB" : "20-07-1999"
+}
+
+Q3)
+//cursor
+var demo2= db.Employee.aggregate([{$match:{'Salary':{$gt:50000}}}]).pretty()
+> demo2.forEach(print(First_Name)) // this is not working
+//other method
+> db.Employee.aggregate([{$match:{'Salary':{$gt:50000}}}]).pretty()
+
+ //
+var cursor1 = db.Employee.find({"Salary":{$gt:50000}}).pretty()
+cursor1.forEach(printjson)// this method used to print gt 50000
+
+Q4)
+db.Employee.aggregate({$sort :{Designation : 1}}).pretty()// ascending
+db.Employee.aggregate({$sort :{Designation : -1}}).pretty() // descending
+
+Q5) count no of docs
+db.Employee.find().count()
+4
+
+db.Employee.aggregate({$count :"Experience"})
+{ "Experience" : 4 }
+
+
+Q6)
+db.Transaction.aggregate([{$group:{_id:"",Total:{$sum:"$Payment.Total_Amount"}}}])
+{ "_id" : "", "Total" : 0 }
+
+> db.Transaction.aggregate({$unwind:"$Payment"},{$group:{_id:"Total",sum:{$sum:{$multiply:["$Transaction.Price","Transaction.Quantity"]}}}})
+{ "_id" : "Total", "sum" : 0 }
+
+// final
+db.Transaction_new.aggregate([{$group:{_id:"",Total:{$sum:"$Payment.Total_Amount"}}}])
+{ "_id" : "", "Total" : 4800 }
+
+
+
+Q7)
+db.Transaction.aggregate([{$group:{_id:"$Payment.Payment_type",Total:{$sum:"$Payment.Total_Amount"}}}])
+{ "_id" : "Cash", "Total" : 0 }
+{ "_id" : "Debit Card", "Total" : 0 }
+{ "_id" : "Credit Card", "Total" : 0 }
+
+db.Transaction_new.aggregate([{$group:{_id:"$Payment.Payment_type",Total:{$sum:"$Payment.Total_Amount"}}}])
+{ "_id" : "Debit Card", "Total" : 4800 }
+
+Q8)
+db.Transaction.find().sort({"Transaction_Date":-1}).limit(1).pretty()
+{
+	"_id" : ObjectId("6524d29a0be08a208a880e9f"),
+	"Transaction_id" : "5t432nbg67",
+	"Transaction_Date" : "26-02-2022",
+	"First_Name" : "Shravani",
+	"Transaction_details" : {
+		"Item_id" : 901,
+		"Item_name" : "Parker Pens",
+		"Quantity" : 25,
+		"Price" : "500 per Pen"
+	},
+	"Payment" : {
+		"Payment_type" : "Debit Card",
+		"Total_Amount" : "12500 Rs",
+		"Payment_status" : "Unsuccessful"
+	},
+	"Remark" : "Kindely Pay the remaining amount."
+}
+
+
+db.Transaction.find({},{Transaction_id:" "}).sort({"Transaction_Date":-1}).limit(1)
+{ "_id" : ObjectId("6524d29a0be08a208a880e9f"), "Transaction_id" : "5t432nbg67" }
+
+Q9)
+
+db.Transaction_new.aggregate([{$match:{'Payment.Total_Amount':{$gt:500}}},{$lookup:{from:"Employee",localField:"First_Name",foreignField:"First_Name",as:"Transaction_details"}},{$project:{"First_Name":1,"Payment.TotalAmount":1,_id:0,Transaction_details:{"Designation":1}}}]).pretty()
+
+{
+	"First_Name" : "Sonika",
+	"Transaction_details" : [ ],
+	"Payment" : {
+		
+	}
+}
+{ "First_Name" : "Sam", "Transaction_details" : [ ], "Payment" : { } }
+
+//Second type.. by creating new collection
+
+db.Transaction3.aggregate([{$match:{'Payment.TotalAmt':{$gt:500}}},{$lookup:{from:"Employee3",localField:"FirstName",foreignField:"FirstName",as:"Details"}},{$project:{"FirstName":1,"Payment.TotalAmt":1,_id:0,Details:{"Designation":1}}}]).pretty()
+{
+	"FirstName" : "Aliya",
+	"Payment" : {
+		"TotalAmt" : 680
+	},
+	"Details" : [
+		{
+			"Designation" : "Manager"
+		}
+	]
+}
+{
+	"FirstName" : "Priyanka",
+	"Payment" : {
+		"TotalAmt" : 580
+	},
+	"Details" : [
+		{
+			"Designation" : "Technical Assistance"
+		}
+	]
+}
+
+
+Q10)
+> var mapFunction = function () {emit(this.Transaction_id, this.Transaction_details.Quantity)};
+> var reduceFunction = function (Transaction_id, Quantity) {return Array.sum(Quantity)};
+> db.Transaction.mapReduce(mapFunction,reduceFunction,{out:"Totals"});
+
+{
+	"result" : "Totals",
+	"timeMillis" : 25,
+	"counts" : {
+		"input" : 8,
+		"emit" : 8,
+		"reduce" : 0,
+		"output" : 8
+	},
+	"ok" : 1
+}
+> db.Totals.find({});
+{ "_id" : "4rg56sa45", "value" : 1 }
+{ "_id" : "5t432nbg67", "value" : 25 }
+{ "_id" : "6789ketrd", "value" : 300 }
+{ "_id" : "754rg32dc", "value" : 30 }
+{ "_id" : "a12c2819", "value" : 20 }
+{ "_id" : "r7x20m567", "value" : 10 }
+{ "_id" : "w34rc9naq", "value" : 200 }
+{ "_id" : "zc45n0912", "value" : 150 }
+

@@ -1,0 +1,113 @@
+MATCH (reader:Reader)-[:Recommended]->(book:Book)
+WHERE book.title IN ['Tinker,Tailor,Soldier,Spy', 'Our Man in Havana']
+RETURN DISTINCT reader.name
+╒═══════════╕
+│reader.name│
+╞═══════════╡
+│"Alan"     │
+├───────────┤
+│"Lan"      │
+└───────────┘
+
+MATCH (a:Reader) WHERE NOT (a:Reader)-[:Recommended]->(:Book) return a
+╒════════════════════════════════════════════════╕
+│a                                               │
+╞════════════════════════════════════════════════╡
+│(:Reader {name: "Joshi",NumberOfBooksIssued: 0})│
+└────────────────────────────────────────────────┘
+
+MATCH (author:Author)-[:Wrote]->(book:Book)<-[:Issued_By|Recommended]-
+(reader:Reader)
+WITH author, COUNT(DISTINCT reader) AS readerCount
+RETURN author.name, readerCount
+ORDER BY readerCount DESC
+LIMIT 1
+╒═══════════════╤═══════════╕
+│author.name    │readerCount│
+╞═══════════════╪═══════════╡
+│"John Le Carre"│2          │
+└───────────────┴───────────┘
+
+MATCH (reader:Reader {name: 'Alan'})-[:Recommended]->(book:Book)
+WITH reader, COLLECT(DISTINCT book) AS recommendedBooks
+MATCH (book)<-[:Issued_By|Recommended]-(otherReader:Reader)
+WHERE otherReader <> reader AND book IN recommendedBooks
+RETURN DISTINCT book.title
+╒═══════════════════════════╕
+│book.title                 │
+╞═══════════════════════════╡
+│"Tinker,Tailor,Soldier,Spy"│
+└───────────────────────────┘
+
+MATCH (reader:Reader {name: 'Alan'})-[:Recommended]->(book:Book)
+WITH book
+MATCH (book)<-[:Issued_By|Recommended]-(otherReader:Reader)
+WITH book, COUNT(DISTINCT otherReader) AS readerCount
+RETURN book.title
+ORDER BY readerCount DESC
+LIMIT 1
+╒═══════════════════════════╕
+│book.title                 │
+╞═══════════════════════════╡
+│"Tinker,Tailor,Soldier,Spy"│
+└───────────────────────────┘
+
+MATCH (publisher:Person {name: 'Harry Boston'})<-[:Published_By]-(book:Book)
+WHERE NOT EXISTS {
+ MATCH (book)-[:Wrote]->(author:Author)-[:Born_In]->({city: 'Pune'})}
+RETURN DISTINCT publisher.name AS PublisherName
+╒══════════════╕
+│PublisherName │
+╞══════════════╡
+│"Harry Boston"│
+└──────────────┘
+
+MATCH (reader:Reader)-[:Issued_By|Recommended]->(book:Book)
+WITH reader, COUNT(DISTINCT book) AS bookCount
+RETURN reader.name, bookCount
+ORDER BY bookCount DESC
+
+
+LIMIT 1
+╒═══════════╤═════════╕
+│reader.name│bookCount│
+╞═══════════╪═════════╡
+│"Lan"      │2        │
+└───────────┴─────────┘
+
+
+
+Song
+
+MATCH (artist:Artist)-[:Performs]->(song:Song)
+WHERE ALL(authorName IN ['Irshan Kamil'] WHERE (song)-[:Written_By]-
+>(:Author {name: authorName}))
+RETURN artist.name
+╒════════════╕
+│artist.name │
+╞════════════╡
+│"Atif Aslam"│
+└────────────┘
+
+MATCH (artist:Artist)-[:Performs]->(song:Song)-[:Recorded_In]->(studio:Studio {name: 'T-Series Film Studio'})
+WITH artist, COUNT(song) AS songCount
+ORDER BY songCount DESC
+LIMIT 1
+RETURN artist.name
+╒═════════════╕
+│artist.name  │
+╞═════════════╡
+│"Neha Kakkar"│
+└─────────────┘
+
+MATCH (a:Artist)-[:Performs]->(b:Song)
+MATCH (b)<-[r:Finances]-(c:Company)
+WHERE a.name = 'Neha Kakkar' AND c.name = 'T-Series'
+RETURN b
+╒═══════════════════════════════════════════╕
+│b                                          │
+╞═══════════════════════════════════════════╡
+│(:Song {name: "Kala Chashma",likes: "28M"})│
+├───────────────────────────────────────────┤
+│(:Song {name: "Maahi Ve",likes: "8M"})     │
+└───────────────────────────────────────────┘
